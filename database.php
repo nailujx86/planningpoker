@@ -88,7 +88,7 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
         return new Spiel($task, $beschreibung, $kartenset, $datum, $id);
     }
 
-    public function addZug(Zug $zug) {
+    public function addZug(Zug $zug): ?int {
         $statement = mysqli_prepare($this->link, "INSERT INTO UserRunde (runde, user, karte) VALUE (?, ?, ?)");
         $runde = $zug->getRunde()->getId();
         if($runde == -1) {
