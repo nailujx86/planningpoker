@@ -4,7 +4,7 @@ require("database.php");
 
 $errors = [];
 
-if(isset($_POST['login']) && !isset($_SESSION['username'])) {
+if (isset($_POST['login']) && !isset($_SESSION['username'])) {
     $username = $_POST['name'];
     $password = $_POST['passw'];
 
@@ -15,9 +15,9 @@ if(isset($_POST['login']) && !isset($_SESSION['username'])) {
         $errors[] = "Passwort fehlt!";
     }
 
-    if(count($errors) == 0) {
+    if (count($errors) == 0) {
         $user = $DB_LINK->getUser(null, $username);
-        if($user == null || !($user->verifyPassword($password))) {
+        if ($user == null || !($user->verifyPassword($password))) {
             $errors[] = "Falsche Login-Daten!";
         } else {
             $_SESSION['username'] = $username;
@@ -25,7 +25,7 @@ if(isset($_POST['login']) && !isset($_SESSION['username'])) {
         }
     }
 } else {
-    if(isset($_SESSION['username'])) {
+    if (isset($_SESSION['username'])) {
         $errors[] = "Bereits angemeldet!";
     }
 }
@@ -39,6 +39,7 @@ if(isset($_POST['login']) && !isset($_SESSION['username'])) {
 </head>
 
 <?php include("errors.php"); ?>
+
 <body>
     <form action="login.php" method="POST">
         Username: <input type="text" name="name" placeholder="scrumMeister111" required><br>

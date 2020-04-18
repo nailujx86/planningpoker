@@ -20,20 +20,20 @@ if (isset($_POST['register']) && !isset($_SESSION['username'])) {
     if (strlen($password) < 8) {
         $errors[] = "Passwort zu kurz! Mindestlänge: 8 Zeichen.";
     }
-    if(empty($passwordconf)) {
+    if (empty($passwordconf)) {
         $errors[] = "Passwort bitte zwei mal eingeben!";
     }
-    if($password != $passwordconf) {
+    if ($password != $passwordconf) {
         $errors[] = "Passwörter stimmen nicht überein!";
     }
-    if(empty($mail)) {
+    if (empty($mail)) {
         $errors[] = "Email fehlt!";
     }
 
-    if(count($errors) == 0) {
+    if (count($errors) == 0) {
         $user = new User($username, $password, $mail);
         $id = $DB_LINK->addUser($user);
-        if($id == null) {
+        if ($id == null) {
             $errors[] = "Benutzer mit diesen Daten existiert bereits!";
         } else {
             $_SESSION['username'] = $username;
@@ -41,7 +41,7 @@ if (isset($_POST['register']) && !isset($_SESSION['username'])) {
         }
     }
 } else {
-    if(isset($_SESSION['username'])) {
+    if (isset($_SESSION['username'])) {
         $errors[] = "Bereits angemeldet!";
     }
 }
@@ -55,6 +55,7 @@ if (isset($_POST['register']) && !isset($_SESSION['username'])) {
     <title>Registrieren</title>
 </head>
 <?php include("errors.php"); ?>
+
 <body>
     <form action="register.php" method="POST">
         Username: <input type="text" name="name" placeholder="scrumMeister111" required><br>

@@ -1,7 +1,8 @@
 <?php
 require_once("spiel.php");
 require_once("user.php");
-class Runde {
+class Runde
+{
     private $id;
     private $teilnehmer;
     private $spiel;
@@ -9,7 +10,8 @@ class Runde {
     private $erstellt;
     private $zuege;
 
-    public function __construct(Spiel $spiel, bool $abgeschlossen = false, string $time = null, int $id = -1) {
+    public function __construct(Spiel $spiel, bool $abgeschlossen = false, string $time = null, int $id = -1)
+    {
         if ($time == null) {
             $time = date("Y-m-d H:i:s");
         }
@@ -21,50 +23,53 @@ class Runde {
         $this->zuege = [];
     }
 
-    public function addUser(User $user) {
+    public function addUser(User $user)
+    {
         $teilnehmerExistiert = false;
-        foreach($this->teilnehmer as $teilnehmerObj) {
-            if($teilnehmerObj->getUsername() == $user->getUsername()) {
+        foreach ($this->teilnehmer as $teilnehmerObj) {
+            if ($teilnehmerObj->getUsername() == $user->getUsername()) {
                 $teilnehmerExistiert = true;
             }
         }
-        if(!$teilnehmerExistiert) {
+        if (!$teilnehmerExistiert) {
             $this->teilnehmer[] = $user;
         }
     }
 
-    public function addZug(Zug $zug) : bool {
+    public function addZug(Zug $zug): bool
+    {
         $isTeilnehmer = false;
-        foreach($this->teilnehmer as $teilnehmerObj) {
-            if($teilnehmerObj->getUsername() == $zug->getUser()->getUsername()) {
+        foreach ($this->teilnehmer as $teilnehmerObj) {
+            if ($teilnehmerObj->getUsername() == $zug->getUser()->getUsername()) {
                 $isTeilnehmer = true;
                 break;
             }
         }
-        if(!$isTeilnehmer) {
+        if (!$isTeilnehmer) {
             return false;
         }
         $hasAbgestimmt = false;
-        foreach($this->zuege as $zugObj) {
-            if($zugObj->getUser()->getUsername() == $zug->getUser()->getUsername()) {
+        foreach ($this->zuege as $zugObj) {
+            if ($zugObj->getUser()->getUsername() == $zug->getUser()->getUsername()) {
                 $hasAbgestimmt = true;
                 break;
             }
         }
-        if($hasAbgestimmt) {
+        if ($hasAbgestimmt) {
             return false;
         }
         $this->zuege[] = $zug;
         return true;
     }
 
-    public function setAbgeschlossen(bool $abgeschlossen) {
+    public function setAbgeschlossen(bool $abgeschlossen)
+    {
         $this->abgeschlossen = $abgeschlossen;
     }
 
     /**
      * Get the value of spiel
-     */ 
+     */
     public function getSpiel()
     {
         return $this->spiel;
@@ -72,7 +77,7 @@ class Runde {
 
     /**
      * Get the value of abgeschlossen
-     */ 
+     */
     public function getAbgeschlossen()
     {
         return $this->abgeschlossen;
@@ -80,7 +85,7 @@ class Runde {
 
     /**
      * Get the value of erstellt
-     */ 
+     */
     public function getErstellt()
     {
         return $this->erstellt;
@@ -88,7 +93,7 @@ class Runde {
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -98,7 +103,7 @@ class Runde {
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -108,7 +113,7 @@ class Runde {
 
     /**
      * Get the value of zuege
-     */ 
+     */
     public function getZuege()
     {
         return $this->zuege;
