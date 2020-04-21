@@ -158,7 +158,7 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
 
     public function getRunden(Spiel $spiel): ?array
     {
-        $statement = mysqli_prepare($this->link, "SELECT DISTINCT Runde.ID, Runde.Abgeschlossen, Runde.Datum FROM Spiel, Runde WHERE (Runde.Spiel = Spiel.ID) AND Spiel.ID = ?");
+        $statement = mysqli_prepare($this->link, "SELECT DISTINCT Runde.ID, Runde.Abgeschlossen, Runde.Datum FROM Spiel, Runde WHERE (Runde.Spiel = Spiel.ID) AND Spiel.ID = ? ORDER BY Runde.Datum DESC");
         mysqli_stmt_bind_param($statement, "i", $spiel->getId());
         $runden = [];
         mysqli_stmt_execute($statement);
