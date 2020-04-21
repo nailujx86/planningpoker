@@ -118,5 +118,13 @@ class Runde
     {
         return $this->zuege;
     }
+
+    /**
+     * Get the value of teilnehmer
+     */ 
+    public function getTeilnehmer()
+    {
+        return $this->teilnehmer;
+    }
 }
 ?>
