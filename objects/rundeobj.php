@@ -1,6 +1,6 @@
 <?php
-require_once("spiel.php");
-require_once("user.php");
+require_once("spielobj.php");
+require_once("userobj.php");
 class Runde
 {
     private $id;

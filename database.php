@@ -5,10 +5,10 @@ require("interfaces/userdata.php");
 require("interfaces/spieldata.php");
 require("interfaces/rundedata.php");
 require("interfaces/zugdata.php");
-require_once("objects/user.php");
-require_once("objects/spiel.php");
-require_once("objects/zug.php");
-require_once("objects/runde.php");
+require_once("objects/userobj.php");
+require_once("objects/spielobj.php");
+require_once("objects/zugobj.php");
+require_once("objects/rundeobj.php");
 
 class Database implements DatabaseInterface, UserDataInterface, SpielDataInterface, RundeDataInterface, ZugDataInterface
 {

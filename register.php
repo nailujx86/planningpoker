@@ -1,7 +1,7 @@
 <?php
 session_start();
 require("database.php");
-require_once("user.php");
+require_once("objects/userobj.php");
 
 $errors = [];
 

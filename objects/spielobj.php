@@ -1,5 +1,5 @@
 <?php
-require_once("runde.php");
+require_once("rundeobj.php");
 class Spiel
 {
     private $id;
