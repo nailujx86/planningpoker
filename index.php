@@ -7,11 +7,12 @@
 ?>
 <body>
     <div class="c">
-        <?php if($_SESSION['username']): ?>
-        <span class="acc">Hallo <?php echo $_SESSION['username'];?>! / <a href="/logout.php">Logout</a></span>
-        <?php else: ?>
-        <span class="acc"><a href="/login.php">Login</a> / <a href="/register.php">Register</a></span>
-        <?php endif ?>
+        <?php include("partials/account.part.php"); ?>
+        <header>
+            <h1 class="center"><a class="undecorated" href="/index.php">PlanningPoker</a></h1>
+            <p class="center">Eine PlanningPoker Webanwendung</p>
+        </header>
     </div>
 </body>
+<?php include("partials/footer.part.php"); ?>
 </html>
