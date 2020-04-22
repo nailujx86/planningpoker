@@ -7,8 +7,9 @@ class Spiel
     private $beschreibung;
     private $karten;
     private $erstellt;
+    private $admin;
 
-    public function __construct(string $task, string $beschreibung, array $karten = ["0,", "1", "2", "3", "4", "5", "6", "7", "8", "9"], string $time = null, int $id = -1)
+    public function __construct(string $task, string $beschreibung, User $admin, array $karten = ["0,", "1", "2", "3", "4", "5", "6", "7", "8", "9"], string $time = null, int $id = -1)
     {
         if ($time == null) {
             $time = date("Y-m-d H:i:s");
@@ -18,6 +19,7 @@ class Spiel
         $this->beschreibung = $beschreibung;
         $this->karten = $karten;
         $this->id = $id;
+        $this->admin = $admin;
     }
 
     /**
@@ -70,6 +72,14 @@ class Spiel
         $this->id = $id;
 
         return $this;
+    }
+
+    /**
+     * Get the value of admin
+     */ 
+    public function getAdmin()
+    {
+        return $this->admin;
     }
 }
 ?>

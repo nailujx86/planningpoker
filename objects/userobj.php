@@ -5,8 +5,9 @@ class User
     private $passwhash;
     private $mail;
     private $erstellt;
+    private $id;
 
-    public function __construct(string $username, string $passw, string $mail, string $time = null)
+    public function __construct(string $username, string $passw, string $mail, string $time = null, int $id = -1)
     {
         if ($time == null) {
             $time = date("Y-m-d H:i:s");
@@ -22,6 +23,7 @@ class User
         $this->passwhash = $hashedpw;
         $this->mail = $mail;
         $this->erstellt = $time;
+        $this->id = $id;
     }
 
     /**
@@ -76,5 +78,13 @@ class User
     public function getPasswhash()
     {
         return $this->passwhash;
+    }
+
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
     }
 }

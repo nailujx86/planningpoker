@@ -4,7 +4,6 @@ require_once("userobj.php");
 class Runde
 {
     private $id;
-    private $teilnehmer;
     private $spiel;
     private $abgeschlossen;
     private $erstellt;
@@ -19,47 +18,31 @@ class Runde
         $this->spiel = $spiel;
         $this->abgeschlossen = $abgeschlossen;
         $this->id = $id;
-        $this->teilnehmer = [];
         $this->zuege = [];
-    }
-
-    public function addUser(User $user)
-    {
-        $teilnehmerExistiert = false;
-        foreach ($this->teilnehmer as $teilnehmerObj) {
-            if ($teilnehmerObj->getUsername() == $user->getUsername()) {
-                $teilnehmerExistiert = true;
-            }
-        }
-        if (!$teilnehmerExistiert) {
-            $this->teilnehmer[] = $user;
-        }
     }
 
     public function addZug(Zug $zug): bool
     {
         $isTeilnehmer = false;
-        foreach ($this->teilnehmer as $teilnehmerObj) {
-            if ($teilnehmerObj->getUsername() == $zug->getUser()->getUsername()) {
+        foreach ($this->zuege as $zugObj) {
+            if ($zugObj->getUser()->getUsername() == $zug->getUser()->getUsername()) {
                 $isTeilnehmer = true;
                 break;
             }
         }
-        if (!$isTeilnehmer) {
-            return false;
-        }
-        $hasAbgestimmt = false;
-        foreach ($this->zuege as $zugObj) {
-            if ($zugObj->getUser()->getUsername() == $zug->getUser()->getUsername()) {
-                $hasAbgestimmt = true;
-                break;
-            }
-        }
-        if ($hasAbgestimmt) {
+        if ($isTeilnehmer) {
             return false;
         }
         $this->zuege[] = $zug;
         return true;
+    }
+
+    public function setZug(Zug $zug) {
+        for($i = 0; $i < count($this->zuege); $i++) {
+            if($zug->getUser()->getUsername() == $this->zuege[$i]->getUser()->getUsername()) {
+                $this->zuege[$i] = $zug;
+            }
+        }
     }
 
     public function setAbgeschlossen(bool $abgeschlossen)
@@ -124,7 +107,11 @@ class Runde
      */ 
     public function getTeilnehmer()
     {
-        return $this->teilnehmer;
+        $teilnehmer = [];
+        foreach($this->zuege as $zug) {
+            $teilnehmer[] = $zug->getUser();
+        }
+        return $teilnehmer;
     }
 }
 ?>
