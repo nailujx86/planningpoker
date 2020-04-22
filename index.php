@@ -1,9 +1,17 @@
+<!DOCTYPE html>
+<html lang="de">
 <?php
     session_start();
-    if($_SESSION['username']) {
-        echo "Logged in as ".$_SESSION["username"];
-        echo "<a href='logout.php'>LOGOUT</a>";
-    } else {
-        echo "<a href='login.php'>LOGIN</a>";
-    }
+    $title = "PlanningPoker";
+    include("partials/header.part.php");
 ?>
+<body>
+    <div class="c">
+        <?php if($_SESSION['username']): ?>
+        <span class="acc">Hallo <?php echo $_SESSION['username'];?>! / <a href="/logout.php">Logout</a></span>
+        <?php else: ?>
+        <span class="acc"><a href="/login.php">Login</a> / <a href="/register.php">Register</a></span>
+        <?php endif ?>
+    </div>
+</body>
+</html>
