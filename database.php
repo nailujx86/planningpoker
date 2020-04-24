@@ -78,7 +78,7 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
     public function updateSpielAdmin(Spiel $spiel): bool
     {
         $statement = mysqli_prepare($this->link, "UPDATE Spiel SET Adminuser = ? WHERE Spiel.ID = ?");
-        mysqli_stmt_bind_param($statement, "si", $spiel->getId(), $spiel->getAdmin()->getId());
+        mysqli_stmt_bind_param($statement, "ii", $spiel->getAdmin()->getId(), $spiel->getId());
         mysqli_stmt_execute($statement);
         if (mysqli_affected_rows($this->link) == 1) {
             return true;
