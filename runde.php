@@ -116,6 +116,7 @@ include("partials/header.part.php");
                                     <p><?= htmlspecialchars($zugObj->getKarte()) ?></p>
                                 </div>
                             </div>
+                            <br>
                         <?php endforeach ?>
                     <?php else : ?>
                         <div class="card">
@@ -123,8 +124,8 @@ include("partials/header.part.php");
                                 <h4>Noch nicht gezogen!</h4>
                             </div>
                         </div>
+                        <br>
                     <?php endif ?>
-                    <br>
                 <?php endif ?>
                 <?php if ($isTeilnehmer && isset($zug) && $runde->getAbgeschlossen() == false) : ?>
                     <div class="card">
