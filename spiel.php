@@ -39,7 +39,7 @@ if (isset($_POST['add_runde']) && isset($_SESSION['username']) && isset($spiel) 
             $errors[] = $mitglied . " ist kein gültiger Benutzer!";
         }
     }
-    header('location: runde.php?id='.$runde->getId());
+    header('location: '.htmlspecialchars($_SERVER['REQUEST_URI']), true, 303);
     exit;
 } else if (isset($_POST['add_runde']) && !isset($_POST['mitglieder'])) {
     $errors[] = "Keine Mitglieder angegeben!";
