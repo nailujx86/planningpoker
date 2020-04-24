@@ -79,7 +79,7 @@ if ($user == null) {
         <div class="i 4">
             <div class="card">
                 <div class="c">
-                    <h4>Spiel hinzufügen:</h4>
+                    <h3>Spiel erstellen</h3>
                     <form method="POST">
                         Task:<br>
                         <input class="full" type="text" name="task" placeholder="Scrum Task" required><br>
