@@ -47,23 +47,35 @@ if (isset($_POST['register']) && !isset($_SESSION['username'])) {
 }
 
 ?>
+<!DOCTYPE html>
 <html lang="de">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrieren</title>
-</head>
-<?php include("errors.php"); ?>
-
+<?php
+    session_start();
+    $title = "Registrieren - PlanningPoker";
+    include("partials/header.part.php");
+?>
 <body>
-    <form action="register.php" method="POST">
-        Username: <input type="text" name="name" placeholder="scrumMeister111" required><br>
-        Passwort: <input type="password" name="passw" required><br>
-        Passwort bestätigen: <input type="password" name="passwconf" required><br>
-        Email: <input type="email" name="mail" required><br>
-        <input type="submit" name="register" value="Registrieren">
-    </form>
+    <div class="c">
+        <header>
+            <h1 class="center"><a class="undecorated" href="/index.php">Registrieren</a></h1>
+        </header>
+        <div class="card gimme_space">
+            <div class="c">
+            <?php include("errors.php") ?>
+            <form action="register.php" method="POST">
+                Username:<br>
+                <input class="full" type="text" name="name" placeholder="scrumMeister111" required><br>
+                Passwort:<br>
+                <input class="full" type="password" name="passw" required><br>
+                Passwort bestätigen:<br>
+                <input class="full" type="password" name="passwconf" required><br>
+                Email:<br>
+                <input class="full" type="email" name="mail" required><br><br>
+                <input type="submit" name="register" value="Registrieren" class="b primary">
+            </form>
+            </div>
+        </div>
+    </div>
 </body>
-
+<?php include("partials/footer.part.php"); ?>
 </html>

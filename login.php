@@ -30,22 +30,31 @@ if (isset($_POST['login']) && !isset($_SESSION['username'])) {
     }
 }
 ?>
+<!DOCTYPE html>
 <html lang="de">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-
-<?php include("errors.php"); ?>
-
+<?php
+    session_start();
+    $title = "Login - PlanningPoker";
+    include("partials/header.part.php");
+?>
 <body>
-    <form action="login.php" method="POST">
-        Username: <input type="text" name="name" placeholder="scrumMeister111" required><br>
-        Passwort: <input type="password" name="passw" required><br>
-        <input type="submit" name="login" value="Login">
-    </form>
+    <div class="c">
+        <header>
+            <h1 class="center"><a class="undecorated" href="/index.php">Login</a></h1>
+        </header>
+        <div class="card gimme_space">
+            <div class="c">
+            <?php include("errors.php") ?>
+            <form action="login.php" method="POST">
+                Username:<br>
+                <input class="full" type="text" name="name" placeholder="scrumMeister111" required><br>
+                Passwort:<br>
+                <input class="full" type="password" name="passw" required><br><br>
+                <input type="submit" name="login" value="Login" class="b primary">
+            </form>
+            </div>
+        </div>
+    </div>
 </body>
-
+<?php include("partials/footer.part.php"); ?>
 </html>

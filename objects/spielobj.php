@@ -81,5 +81,17 @@ class Spiel
     {
         return $this->admin;
     }
+
+    /**
+     * Set the value of admin
+     *
+     * @return  self
+     */ 
+    public function setAdmin($admin)
+    {
+        $this->admin = $admin;
+
+        return $this;
+    }
 }
 ?>

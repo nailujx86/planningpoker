@@ -4,4 +4,12 @@
     <title><?=$title?></title>
     <link rel="stylesheet" type="text/css" href="/assets/small.css">
     <link rel="stylesheet" type="text/css" href="/assets/utils.css">
+    <style>
+        .error {
+            color: crimson;
+        }
+        td {
+            word-wrap: normal;
+        }
+    </style>
 </head>

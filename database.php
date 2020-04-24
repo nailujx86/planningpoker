@@ -63,15 +63,27 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
         $statement = mysqli_prepare($this->link, "INSERT INTO Spiel (task, beschreibung, kartenset, datum, adminuser) VALUE (?, ?, ?, ?, ?)");
         $task = mysqli_escape_string($this->link, $spiel->getTask());
         $beschreibung = mysqli_escape_string($this->link, $spiel->getBeschreibung());
-        $datum = mysqli_escape_string($this->link, $spiel->getBeschreibung());
-        $kartenset = mysqli_escape_string($this->link, json_encode($spiel->getKarten()));
-        $adminuser = mysqli_escape_string($this->link, $spiel->getAdmin()->getId());
-        mysqli_stmt_bind_param($statement, "ssss", $task, $beschreibung, $kartenset, $datum, $adminuser);
+        $datum = mysqli_escape_string($this->link, $spiel->getErstellt());
+        $kartenset = json_encode($spiel->getKarten());
+        $adminuser = $spiel->getAdmin()->getId();
+        mysqli_stmt_bind_param($statement, "ssssi", $task, $beschreibung, $kartenset, $datum, $adminuser);
         mysqli_stmt_execute($statement);
         if (mysqli_affected_rows($this->link) == 1) {
             return mysqli_insert_id($this->link);
         } else {
             return null;
+        }
+    }
+
+    public function updateSpielAdmin(Spiel $spiel): bool
+    {
+        $statement = mysqli_prepare($this->link, "UPDATE Spiel SET Adminuser = ? WHERE Spiel.ID = ?");
+        mysqli_stmt_bind_param($statement, "si", $spiel->getId(), $spiel->getAdmin()->getId());
+        mysqli_stmt_execute($statement);
+        if (mysqli_affected_rows($this->link) == 1) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -142,10 +154,10 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
 
     public function getSpiele(User $user): ?array
     {
-        $statement = mysqli_prepare($this->link, "SELECT DISTINCT Spiel.ID, Spiel.Task, Spiel.Beschreibung, Spiel.Kartenset, Spiel.Datum, Spiel.Adminuser FROM Spiel, Runde, User, UserRunde WHERE (Runde.Spiel = Spiel.ID) AND (User.ID = UserRunde.User) AND (Runde.ID = UserRunde.Runde) AND (User.Vorname LIKE ?)");
+        $statement = mysqli_prepare($this->link, "SELECT DISTINCT Spiel.ID, Spiel.Task, Spiel.Beschreibung, Spiel.Kartenset, Spiel.Datum AS Datum, Spiel.Adminuser FROM Spiel, Runde, User, UserRunde WHERE (Runde.Spiel = Spiel.ID) AND (User.ID = UserRunde.User) AND (Runde.ID = UserRunde.Runde) AND (User.Vorname LIKE ?) UNION SELECT Spiel.ID, Spiel.Task, Spiel.Beschreibung, Spiel.Kartenset, Spiel.Datum AS Datum, Spiel.Adminuser FROM Spiel, User WHERE User.Vorname LIKE ? AND Spiel.Adminuser = User.ID ORDER BY Datum DESC");
         $username = mysqli_escape_string($this->link, $user->getUsername());
         $spiele = [];
-        mysqli_stmt_bind_param($statement, "s", $username);
+        mysqli_stmt_bind_param($statement, "ss", $username, $username);
         mysqli_stmt_execute($statement);
         mysqli_stmt_store_result($statement);
         if (mysqli_stmt_num_rows($statement) < 1) {
@@ -237,5 +249,3 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
 }
 
 $DB_LINK = new Database($DB_HOST, $DB_USER, $DB_PASSW, $DB_NAME, $DB_PORT);
-
-?>
