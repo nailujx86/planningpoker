@@ -109,7 +109,7 @@ include("partials/header.part.php");
                                 <tr>
                                     <th>Teilnehmer</th>
                                     <th>Züge</th>
-                                    <th>Abgeschlossen</th>
+                                    <th>Beendet</th>
                                     <th>Erstellt</th>
                                     <th></th>
                                 </tr>
