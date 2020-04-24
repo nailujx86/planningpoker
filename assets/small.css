@@ -33,12 +33,12 @@ h1,h2,h3,h4,h5,h6 {
 }
 @media (min-width: 769px){
     .r{
-       border-spacing: 1.5em 0;
+        border-spacing: 1.5em 0;
     }
     .i{
-       display: table-cell;
-       height: 100%;
-       vertical-align: top;
+        display: table-cell;
+        height: 100%;
+        vertical-align: top;
     }
     [class ~= "1"]{
         width: 8.33%;
