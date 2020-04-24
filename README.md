@@ -1,1 +1,1 @@
-# planningpoker
+# planningpoker 🃏
