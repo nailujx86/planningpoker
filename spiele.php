@@ -89,7 +89,7 @@ include("partials/header.part.php");
                             Beschreibung:<br>
                             <input class="full" type="text" name="beschreibung" placeholder="Beschreibung"><br>
                             Kartenset:<br>
-                            <input class="full" type="text" name="kartenset" placeholder='["0,", "1", "2", "3", "4", "5", "6", "7", "8", "9"]'><br><br>
+                            <input class="full" type="text" name="kartenset" placeholder='["0,", "1", "2", "3", "4", "5", "6", "7", "8", "9", "☕"]'><br><br>
                             <input class="b" type="submit" name="add_game" value="Spiel starten">
                         </form>
                     </div>

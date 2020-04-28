@@ -12,7 +12,7 @@ class Spiel
     /**
      * Konstruktor für das Spielobjekt. Legt standardmäßig den Zeit-Parameter auf das jetzige Datum im SQL DateTime Format.
      */
-    public function __construct(string $task, string $beschreibung, User $admin, array $karten = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], string $time = null, int $id = -1)
+    public function __construct(string $task, string $beschreibung, User $admin, array $karten = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "☕"], string $time = null, int $id = -1)
     {
         if ($time == null) {
             $time = date("Y-m-d H:i:s");
