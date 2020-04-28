@@ -138,7 +138,11 @@ include("partials/header.part.php");
                         <div class="c">
                             <form method="POST">
                                 Karte:<br>
-                                <input class="full" type="text" name="karte" placeholder="<?= htmlspecialchars($zug->getKarte()) ?>" required><br><br>
+                                <input class="full" type="text" id="kartenfeld" name="karte" placeholder="<?= htmlspecialchars($zug->getKarte()) ?>" required><br><br>
+                                <?php foreach($runde->getSpiel()->getKarten() as $karte): ?>
+                                <button class="b" type="button" onclick="document.getElementById('kartenfeld').value = <?=$karte?>;"><?=$karte?></button>
+                                <?php endforeach ?>
+                                <br>
                                 <input class="b primary" type="submit" name="update_karte" value="Karte aktualisieren">
                             </form>
                         </div>
