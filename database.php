@@ -206,6 +206,7 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
         }
         mysqli_stmt_bind_result($statement, $id, $task, $beschreibung, $kartenset, $datum, $adminuser);
         while (mysqli_stmt_fetch($statement)) {
+            error_log($kartenset);
             $adminuserobj = $this->getUser($adminuser);
             $spiele[] = new Spiel($task, $beschreibung, $adminuserobj, json_decode($kartenset), $datum, $id);
         }
@@ -302,4 +303,4 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
 }
 
 $DB_LINK = new Database($DB_HOST, $DB_USER, $DB_PASSW, $DB_NAME, $DB_PORT);
-mysqli_query($DB_LINK, "SET NAMES 'utf8'");
+mysqli_query($DB_LINK->getLink(), "SET NAMES 'utf8'");
