@@ -46,6 +46,9 @@ if (!isset($_SESSION['username'])) {
     }
 }
 
+/**
+ * Nutzer hinzufügen
+ */
 if (isset($_POST['add_user']) && $isAdmin && isset($_POST['username']) && isset($runde)) {
     $user = $DB_LINK->getUser(null, $_POST['username']);
     if ($user == null) {
@@ -66,6 +69,9 @@ if (isset($_POST['add_user']) && $isAdmin && isset($_POST['username']) && isset(
     $errors[] = "Du bist nicht der Admin dieses Spiels!";
 }
 
+/**
+ * Karte aktualisieren
+ */
 if (isset($_POST['update_karte']) && $isTeilnehmer && isset($_POST['karte']) && isset($runde) && $runde->getAbgeschlossen() == false) {
     $zug = new Zug($runde, $curUser, $_POST['karte']);
     $updated = $DB_LINK->updateZug($zug);

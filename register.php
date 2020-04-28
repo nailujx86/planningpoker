@@ -5,6 +5,9 @@ require_once("objects/userobj.php");
 
 $errors = [];
 
+/**
+ * Nutzer registrieren
+ */
 if (isset($_POST['register']) && !isset($_SESSION['username'])) {
     $username = $_POST['name'];
     $password = $_POST['passw'];

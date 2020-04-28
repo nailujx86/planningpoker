@@ -10,6 +10,9 @@ require_once("objects/spielobj.php");
 require_once("objects/zugobj.php");
 require_once("objects/rundeobj.php");
 
+/**
+ * Klasse Datenbank stellt Zugriff auf eine Datenbank bereit.
+ */
 class Database implements DatabaseInterface, UserDataInterface, SpielDataInterface, RundeDataInterface, ZugDataInterface
 {
     private $link;

@@ -6,6 +6,9 @@ if (!isset($errors)) {
     $errors = [];
 }
 
+/**
+ * Spiel hinzufügen
+ */
 if (!isset($_SESSION['username'])) {
     header('location: login.php');
 } else if (isset($_POST['add_game']) && isset($_POST['task'])) {

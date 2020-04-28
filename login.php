@@ -4,6 +4,9 @@ require("database.php");
 
 $errors = [];
 
+/**
+ * Nutzer anmelden
+ */
 if (isset($_POST['login']) && !isset($_SESSION['username'])) {
     $username = $_POST['name'];
     $password = $_POST['passw'];

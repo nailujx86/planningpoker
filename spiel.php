@@ -25,10 +25,14 @@ if (!isset($_SESSION['username'])) {
         $isAdmin = true;
     }
 }
+
+/**
+ * Runde hinzufügen
+ */
 if (isset($_POST['add_runde']) && isset($_SESSION['username']) && isset($spiel) && isset($_POST['mitglieder']) && $isAdmin) {
     $runde = new Runde($spiel);
     $user = $DB_LINK->getUser(null, $_SESSION['username']);
-    $mitglieder = preg_split('/\r\n|\r|\n/', $_POST['mitglieder']);
+    $mitglieder = preg_split('/\r\n|\r|\n/', $_POST['mitglieder']); //Neue Zeilen trennen
     $runde->setId($DB_LINK->addRunde($runde));
     foreach ($mitglieder as $mitglied) {
         $mitgliedUser = $DB_LINK->getUser(null, $mitglied);
@@ -47,6 +51,9 @@ if (isset($_POST['add_runde']) && isset($_SESSION['username']) && isset($spiel) 
     $errors[] = "Sie sind nicht der Runden-Administrator!";
 }
 
+/**
+ * Administratorrechte übertragen
+ */
 if (isset($_POST['transfer_ownership']) && isset($_SESSION['username']) && isset($spiel) && isset($_POST['username']) && $isAdmin) {
     $user = $DB_LINK->getUser(null, $_POST['username']);
     if ($user == null) {
@@ -59,6 +66,9 @@ if (isset($_POST['transfer_ownership']) && isset($_SESSION['username']) && isset
     }
 }
 
+/**
+ * Teilnehmer letzter Runde sammeln für den "mit letzten Mitgliedern füllen" Button
+ */
 $lastTeilnehmerArr = [];
 if ($spiel) {
     if (!$runden || count($runden) == 0) {
