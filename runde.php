@@ -142,7 +142,7 @@ include("partials/header.part.php");
                                 <?php foreach($runde->getSpiel()->getKarten() as $karte): ?>
                                 <button class="b" type="button" onclick="document.getElementById('kartenfeld').value = '<?=$karte?>';"><?=$karte?></button>
                                 <?php endforeach ?>
-                                <br>
+                                <br><br>
                                 <input class="b primary" type="submit" name="update_karte" value="Karte aktualisieren">
                             </form>
                         </div>
