@@ -9,6 +9,9 @@ class Runde
     private $erstellt;
     private $zuege;
 
+    /**
+     * Konstruktor für das Rundenobjekt. Legt standardmäßig den Zeit-Parameter auf das jetzige Datum im SQL DateTime Format.
+     */
     public function __construct(Spiel $spiel, bool $abgeschlossen = false, string $time = null, int $id = -1)
     {
         if ($time == null) {
@@ -21,6 +24,10 @@ class Runde
         $this->zuege = [];
     }
 
+    /**
+     * Fügt einen Zug der Zugliste hinzu, wenn der Nutzer der dem Zug zugeordnet ist noch keinen Zug in diesem Rundenobjekt "getätigt" hat.
+     * @return bool hinzugefügt
+     */
     public function addZug(Zug $zug): bool
     {
         $isTeilnehmer = false;
@@ -37,6 +44,9 @@ class Runde
         return true;
     }
 
+    /**
+     * Ersetzt einen Zug
+     */
     public function setZug(Zug $zug) {
         for($i = 0; $i < count($this->zuege); $i++) {
             if($zug->getUser()->getUsername() == $this->zuege[$i]->getUser()->getUsername()) {
@@ -45,6 +55,9 @@ class Runde
         }
     }
 
+    /**
+     * Setzt ein Rundenobjekt auf abgeschlossen
+     */
     public function setAbgeschlossen(bool $abgeschlossen)
     {
         $this->abgeschlossen = $abgeschlossen;

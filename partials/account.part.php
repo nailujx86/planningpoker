@@ -1,3 +1,8 @@
+<?php
+/**
+ * Zeigt den Anmeldezustand an. Abhängig von diesem wird "Logout" oder "Login/Registrieren" angezeigt.
+ */
+?>
 <?php if($_SESSION['username']): ?>
 <span class="acc">Hallo <?=htmlspecialchars($_SESSION['username'])?>! / <a href="/logout.php">Logout</a></span>
 <?php else: ?>

@@ -7,6 +7,10 @@ class User
     private $erstellt;
     private $id;
 
+    /**
+     * Konstruktor für das Nutzerobjekt. Legt standardmäßig den Zeit-Parameter auf das jetzige Datum im SQL DateTime Format.
+     * Zudem wird das gegebene Passwort, falls nicht bereits geschehen, gehashed.
+     */
     public function __construct(string $username, string $passw, string $mail, string $time = null, int $id = -1)
     {
         if ($time == null) {

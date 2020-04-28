@@ -4,6 +4,9 @@ class Zug {
     private $user;
     private $karte;
 
+    /**
+     * Konstruktor für das Zugobjekt.
+     */
     public function __construct(Runde $runde, User $user, string $karte = null) {
         $this->runde = $runde;
         $this->user = $user;

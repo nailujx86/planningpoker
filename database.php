@@ -14,15 +14,21 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
 {
     private $link;
 
+    /**
+     * Konstruktor für das Datenbankobjekt.
+     */
     public function __construct(string $host = "localhost", string $user, string $passw, string $name, int $port = 3306)
     {
         $this->link = mysqli_connect($host, $user, $passw, $name, $port) or die("Fehler: " . mysqli_error($this->link));
     }
 
+    /**
+     * Legt einen Benutzer in der Datenbank an.
+     * @return id
+     */
     public function addUser(User $user): ?int
     {
         $statement = mysqli_prepare($this->link, "INSERT INTO User (vorname, mail, passwort, datum) VALUES (?, ?, ?, ?)");
-        echo $this->link->error;
         $name = mysqli_escape_string($this->link, $user->getUsername());
         $passw = mysqli_escape_string($this->link, $user->getPasswhash());
         $mail = mysqli_escape_string($this->link, $user->getMail());
@@ -36,6 +42,10 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
         }
     }
 
+    /**
+     * Holt einen Benutzer anhand der id oder dessen nutzernamen aus der Datenbank.
+     * @return User
+     */
     public function getUser(int $id = null, string $name = null): ?User
     {
         $statement = null;
@@ -58,6 +68,10 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
         return new User($username, $pwhash, $mail, $timestamp, $id);
     }
 
+    /**
+     * Legt ein Spiel in der Datenbank an.
+     * @return id
+     */
     public function addSpiel(Spiel $spiel): ?int
     {
         $statement = mysqli_prepare($this->link, "INSERT INTO Spiel (task, beschreibung, kartenset, datum, adminuser) VALUE (?, ?, ?, ?, ?)");
@@ -75,6 +89,10 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
         }
     }
 
+    /**
+     * Aktualisiert den gesetzten Spieler eines Spiels in der Datenbank
+     * @return bool aktualisiert
+     */
     public function updateSpielAdmin(Spiel $spiel): bool
     {
         $statement = mysqli_prepare($this->link, "UPDATE Spiel SET Adminuser = ? WHERE Spiel.ID = ?");
@@ -87,6 +105,10 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
         }
     }
 
+    /**
+     * Holt ein Spiel anhand der id
+     * @return Spiel
+     */
     public function getSpiel(int $id): ?Spiel
     {
         $statement = mysqli_prepare($this->link, "SELECT id, task, beschreibung, kartenset, datum, adminuser FROM Spiel WHERE Spiel.ID = ?");
@@ -103,6 +125,10 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
         return new Spiel($task, $beschreibung, $adminUser, $kartenset, $datum, $id);
     }
 
+    /**
+     * Legt einen Zug in der Datenbank an.
+     * @return bool erfolg
+     */
     public function addZug(Zug $zug): bool
     {
         $statement = mysqli_prepare($this->link, "INSERT INTO UserRunde (runde, user, karte) VALUE (?, ?, ?)");
@@ -122,6 +148,10 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
         }
     }
 
+    /**
+     * Aktualisiert die gewählte Karte eines Zugs in der Datenbank
+     * @return bool erfolg
+     */
     public function updateZug(Zug $zug): bool
     {
         $statement = mysqli_prepare($this->link, "UPDATE UserRunde SET Karte = ? WHERE UserRunde.Runde = ? AND UserRunde.User = ?");
@@ -134,6 +164,10 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
         }
     }
 
+    /**
+     * Legt eine Runde in der Datenbank an.
+     * @return id
+     */
     public function addRunde(Runde $runde): ?int
     {
         $statement = mysqli_prepare($this->link, "INSERT INTO Runde (spiel, abgeschlossen, datum) VALUE (?, ?, ?)");
@@ -152,6 +186,10 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
         }
     }
 
+    /**
+     * Holt alle Spiele in denen ein Nutzer entweder Teilnehmer oder Administrator ist.
+     * @return array spiele
+     */
     public function getSpiele(User $user): ?array
     {
         $statement = mysqli_prepare($this->link, "SELECT DISTINCT Spiel.ID, Spiel.Task, Spiel.Beschreibung, Spiel.Kartenset, Spiel.Datum AS Datum, Spiel.Adminuser FROM Spiel, Runde, User, UserRunde WHERE (Runde.Spiel = Spiel.ID) AND (User.ID = UserRunde.User) AND (Runde.ID = UserRunde.Runde) AND (User.Vorname LIKE ?) UNION SELECT Spiel.ID, Spiel.Task, Spiel.Beschreibung, Spiel.Kartenset, Spiel.Datum AS Datum, Spiel.Adminuser FROM Spiel, User WHERE User.Vorname LIKE ? AND Spiel.Adminuser = User.ID ORDER BY Datum DESC");
@@ -171,6 +209,10 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
         return $spiele;
     }
 
+    /**
+     * Holt eine Runde anhand der id
+     * @return Runde
+     */
     public function getRunde(int $id): ?Runde
     {
         $statement = mysqli_prepare($this->link, "SELECT Runde.ID, Runde.Abgeschlossen, Runde.Datum, Runde.Spiel FROM Runde WHERE Runde.ID = ?");
@@ -196,6 +238,10 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
         return $runde;
     }
 
+    /**
+     * Holt alle Runden die zu einem Spiel gehören
+     * @return array runden
+     */
     public function getRunden(Spiel $spiel): ?array
     {
         $statement = mysqli_prepare($this->link, "SELECT DISTINCT Runde.ID, Runde.Abgeschlossen, Runde.Datum FROM Spiel, Runde WHERE (Runde.Spiel = Spiel.ID) AND Spiel.ID = ? ORDER BY Runde.Datum DESC");
@@ -223,6 +269,10 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
         return $runden;
     }
 
+    /**
+     * Aktualisiert den "abgeschlossen" Zustand einer Runde.
+     * @return bool abgeschlossen
+     */
     public function updateRundeAbgeschlossen(Runde $runde): ?bool
     {
         $statement = mysqli_prepare($this->link, "SELECT Runde.ID FROM Runde, UserRunde WHERE Runde.ID = UserRunde.Runde AND (UserRunde.Karte IS NULL OR UserRunde.Karte LIKE '') AND Runde.ID = ?");
@@ -240,7 +290,7 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
     }
 
     /**
-     * Get the value of link
+     * Gibt den Datenbank-Link zurück.
      */
     public function getLink()
     {
