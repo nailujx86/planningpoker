@@ -206,7 +206,6 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
         }
         mysqli_stmt_bind_result($statement, $id, $task, $beschreibung, $kartenset, $datum, $adminuser);
         while (mysqli_stmt_fetch($statement)) {
-            error_log($kartenset);
             $adminuserobj = $this->getUser($adminuser);
             $spiele[] = new Spiel($task, $beschreibung, $adminuserobj, json_decode($kartenset), $datum, $id);
         }
