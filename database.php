@@ -302,3 +302,4 @@ class Database implements DatabaseInterface, UserDataInterface, SpielDataInterfa
 }
 
 $DB_LINK = new Database($DB_HOST, $DB_USER, $DB_PASSW, $DB_NAME, $DB_PORT);
+mysqli_query($DB_LINK, "SET NAMES 'utf8'");

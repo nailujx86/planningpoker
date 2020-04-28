@@ -140,7 +140,8 @@ include("partials/header.part.php");
                                 Karte:<br>
                                 <input class="full" type="text" id="kartenfeld" name="karte" placeholder="<?= htmlspecialchars($zug->getKarte()) ?>" required><br><br>
                                 <?php foreach($runde->getSpiel()->getKarten() as $karte): ?>
-                                <button class="b" type="button" onclick="document.getElementById('kartenfeld').value = '<?=$karte?>';"><?=$karte?></button>
+                                <?php error_log($karte) ?>
+                                <button class="b" type="button" onclick="document.getElementById('kartenfeld').value = '<?=htmlspecialchars($karte)?>';"><?=htmlspecialchars($karte)?></button>
                                 <?php endforeach ?>
                                 <br><br>
                                 <input class="b primary" type="submit" name="update_karte" value="Karte aktualisieren">
