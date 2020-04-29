@@ -1,0 +1,39 @@
+version: '3'
+services:
+    web:
+        build: .
+        volumes:
+            - ./web:/var/www/html/
+        links:
+            - db
+        ports:
+            - "8001:80"
+        networks:
+            - default
+    db:
+        image: mysql:8.0.16
+        command: ['--default-authentication-plugin=mysql_native_password']
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: planningpoker
+            MYSQL_USER: user
+            MYSQL_PASSWORD: mysqlpw
+        ports:
+            - "8002:3306"
+        volumes:
+            - ./dump:/docker-entrypoint-initdb.d
+            - persistent:/var/lib/mysql
+        networks:
+            - default
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:4.8
+        links:
+            - db
+        ports:
+            - '8000:80'
+        environment:
+            MYSQL_USER: user
+            MYSQL_PASSWORD: mysqlpw
+            MYSQL_ROOT_PASSWORD: root
+volumes: 
+    persistent:
