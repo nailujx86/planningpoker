@@ -89,7 +89,7 @@ if (isset($_POST['update_karte']) && $isTeilnehmer && isset($_POST['karte']) && 
 <!DOCTYPE html>
 <html lang="de">
 <?php
-$title = "Rundenübersicht - PlanningPoker";
+$title = "Rundenübersicht - ScrumPoker";
 include("partials/header.part.php");
 ?>
 

@@ -54,7 +54,7 @@ if (isset($_POST['register']) && !isset($_SESSION['username'])) {
 <html lang="de">
 <?php
     session_start();
-    $title = "Registrieren - PlanningPoker";
+    $title = "Registrieren - ScrumPoker";
     include("partials/header.part.php");
 ?>
 <body>

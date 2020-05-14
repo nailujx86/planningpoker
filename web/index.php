@@ -3,15 +3,15 @@
 <html lang="de">
 <?php
     session_start();
-    $title = "PlanningPoker";
+    $title = "ScrumPoker";
     include("partials/header.part.php");
 ?>
 <body>
     <div class="c">
         <?php include("partials/account.part.php"); ?>
         <header>
-            <h1 class="center"><a class="undecorated" href="/index.php">PlanningPoker</a></h1>
-            <p class="center">Eine PlanningPoker Webanwendung</p>
+            <h1 class="center"><a class="undecorated" href="/index.php">ScrumPoker</a></h1>
+            <p class="center">Eine ScrumPoker Webanwendung</p>
         </header>
         <div class="gimme_space center">
             <?php if(!isset($_SESSION['username'])): ?>

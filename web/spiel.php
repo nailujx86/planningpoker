@@ -88,7 +88,7 @@ $lastTeilnehmerArrJson = json_encode($lastTeilnehmerArr);
 <!DOCTYPE html>
 <html lang="de">
 <?php
-$title = "Spielübersicht - PlanningPoker";
+$title = "Spielübersicht - ScrumPoker";
 include("partials/header.part.php");
 ?>
 <script>

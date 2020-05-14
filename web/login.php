@@ -37,7 +37,7 @@ if (isset($_POST['login']) && !isset($_SESSION['username'])) {
 <html lang="de">
 <?php
     session_start();
-    $title = "Login - PlanningPoker";
+    $title = "Login - ScrumPoker";
     include("partials/header.part.php");
 ?>
 <body>

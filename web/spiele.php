@@ -43,7 +43,7 @@ if ($user == null) {
 <html lang="de">
 <?php
 session_start();
-$title = "Spiele - PlanningPoker";
+$title = "Spiele - ScrumPoker";
 include("partials/header.part.php");
 ?>
 
